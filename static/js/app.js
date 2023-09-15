@@ -26,14 +26,15 @@ function init() {
           selector.append("option").text(sample).property("value", sample);
       });
    
-      let first_sample = sampleNames[0];
+      let firstSample = sampleNames[0];
 
-      console.log(first_sample);
+      console.log(firstSample);
 
-      buildMetadata(first_sample);
-      buildBarChart(first_sample);
-      buildBubbleChart(first_sample);
-      //buildGaugeChart(first_sample);
+      buildMetadata(firstSample);
+      buildBarChart(firstSample);
+      buildBubbleChart(firstSample);
+      //buildGaugeChart(firstSample);
+
   });
 }
 
