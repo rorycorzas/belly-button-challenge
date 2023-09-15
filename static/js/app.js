@@ -7,8 +7,8 @@ URL: https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-
 const url = "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json";
 
 // Promise Pending
-//const dataPromise = d3.json(url);
-//console.log("Data Promise: ", dataPromise);
+const dataPromise = d3.json(url);
+console.log("Data Promise: ", dataPromise);
 
 // Fetch the JSON data and console log it
 d3.json(url).then(function(data) {
@@ -72,17 +72,17 @@ function buildBarChart(sample) {
           margin: { t: 80, l: 150 },
       
           // Customize the chart theme here
-           paper_bgcolor: 'blue', 
-           plot_bgcolor: 'green',
+           paper_bgcolor: 'white', 
+           plot_bgcolor: 'white',
            font: {
-               color: 'white'
+               color: 'black'
           },
           xaxis: {
               range: [0, 200] 
           },        
           // Ajustar el tamaño de la gráfica
-          width: 550, // width
-          height: 450 // hight
+          width: 700, // width
+          height: 500 // hight
       };
 
       Plotly.newPlot("bar", barData, barLayout);
@@ -130,8 +130,8 @@ function buildBubbleChart(sample) {
           margin: { t: 30 },
 
           // Customize the chart theme here
-          paper_bgcolor: 'white', 
-          plot_bgcolor: 'red', 
+          paper_bgcolor: 'green', 
+          plot_bgcolor: 'white', 
           font: {
               color: 'white'
          }
@@ -155,8 +155,8 @@ function buildMetadata(sample) {
       Object.entries(result).forEach(([key, value]) => {
           let metadataItem = PANEL.append("h6").text(`${key.toUpperCase()}: ${value}`);
 
-          metadataItem.style("background-color", "#000");
-          metadataItem.style("color", "#fff"); 
+          //metadataItem.style("background-color", "#c0c");
+          metadataItem.style("color", "#000"); 
 
       });
   });
@@ -169,9 +169,7 @@ function optionChanged(newSample) {
   buildBubbleChart(newSample);
   buildGaugeChart(newSample);
 
-  // Log the new value
   console.log(newSample); 
 }
-
 // Initialize the dashboard
 init();
