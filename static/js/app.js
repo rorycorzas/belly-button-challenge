@@ -33,9 +33,39 @@ function init() {
       buildMetadata(first_sample);
       buildBarChart(first_sample);
       buildBubbleChart(first_sample);
-      buildGaugeChart(first_sample);
+      //buildGaugeChart(first_sample);
   });
 }
+
+/*
+    var sample_values = data.samples.map(x=> x.sample_values);
+    var otu_ids = data.samples.map(x=> x.otu_ids);
+    var otu_label = data.samples.map(x=> x.otu_labels);
+    
+    // Get the top 10 OTU for the selected ID
+    var sorted_test = sample_values.sort(function(a, b){return b-a});
+    var top_ten = sorted_test.map(x => x.slice(0,10));
+    var sorted_ids = otu_ids.sort(function(a, b){return b-a});
+    var top_ids = sorted_ids.map(x =>x.slice(0,10));
+    var sorted_labels = otu_label.sort(function(a, b){return b-a});
+    var top_labels = sorted_labels.map(x =>x.slice(0,10));
+
+    // Get the first ID to display on page on load
+    var firstID = data.metadata[0]// first id
+    var sampleMetadata1 = d3.select("#sample-metadata").selectAll('h1')
+    
+    //-------------------------------------------------
+    // Display the first ID's demographic information
+    var sampleMetadata = sampleMetadata1.data(d3.entries(firstID))
+    sampleMetadata.enter()
+                    .append('h1')
+                    .merge(sampleMetadata)
+                    .text(d => `${d.key} : ${d.value}`)
+                    .style('font-size','12px')
+  
+    sampleMetadata.exit().remove()
+    
+*/
 
 // Bar chart
 function buildBarChart(sample) {
@@ -113,7 +143,7 @@ function buildBubbleChart(sample) {
           marker: {
               size: sample_values,
               color: otu_ids,
-              colorscale: "Earth"
+              colorscale: "species"
           }
       }];
 
@@ -125,12 +155,11 @@ function buildBubbleChart(sample) {
           margin: { t: 0 }, 
           hovermode: "closest",
           
-          xaxis: { title: "OTU ID" },
-          
+          xaxis: { title: "OTUs IDs" },
           margin: { t: 30 },
 
           // Customize the chart theme here
-          paper_bgcolor: 'green', 
+          paper_bgcolor: 'lightgray', 
           plot_bgcolor: 'white', 
           font: {
               color: 'white'
@@ -141,6 +170,7 @@ function buildBubbleChart(sample) {
       Plotly.newPlot("bubble", bubbleData, bubbleLayout);
   });
 }
+
 
 // Metadata info
 function buildMetadata(sample) {
@@ -162,9 +192,12 @@ function buildMetadata(sample) {
   });
 }
 
+
+
 // Function that updates dashboard when sample is changed
 function optionChanged(newSample) {
-  buildMetadata(newSample);
+  //buildMetadata(newSample);
+  sampleMetadata
   buildBarChart(newSample);
   buildBubbleChart(newSample);
   buildGaugeChart(newSample);
