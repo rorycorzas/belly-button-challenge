@@ -3,7 +3,7 @@ This repository contains the data analysis of belly button biodiversity study re
 
 You'll find the github repository: https://github.com/rorycorzas/belly-button-challenge.git
 
-In index.html, include the plotly.js and d3.js according to documentation
+At index.html, include the plotly.js and d3.js according to documentation
 
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script src="https://d3js.org/d3.v5.min.js"></script>

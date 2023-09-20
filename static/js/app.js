@@ -8,11 +8,11 @@ const url = "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/
 
 // Promise Pending
 const dataPromise = d3.json(url);
-console.log("Data Promise: ", dataPromise);
+//console.log("Data Promise: ", dataPromise);
 
-// Fetch the JSON data and console log it
+// Fetch the JSON data
 d3.json(url).then(function(data) {
-  console.log(data);
+  //console.log(data);
 });
 
 // Initialize the dashboard at start up 
@@ -21,52 +21,19 @@ function init() {
   d3.json(url).then((data) => {
       let sampleNames = data.names; 
       sampleNames.forEach((sample) => {
-          console.log(sample);
-
+         // console.log(sample);
           selector.append("option").text(sample).property("value", sample);
       });
-   
+
       let firstSample = sampleNames[0];
 
-      console.log(firstSample);
-
+     // console.log(firstSample);
       buildMetadata(firstSample);
       buildBarChart(firstSample);
       buildBubbleChart(firstSample);
-      //buildGaugeChart(firstSample);
 
   });
 }
-
-/*
-    var sample_values = data.samples.map(x=> x.sample_values);
-    var otu_ids = data.samples.map(x=> x.otu_ids);
-    var otu_label = data.samples.map(x=> x.otu_labels);
-    
-    // Get the top 10 OTU for the selected ID
-    var sorted_test = sample_values.sort(function(a, b){return b-a});
-    var top_ten = sorted_test.map(x => x.slice(0,10));
-    var sorted_ids = otu_ids.sort(function(a, b){return b-a});
-    var top_ids = sorted_ids.map(x =>x.slice(0,10));
-    var sorted_labels = otu_label.sort(function(a, b){return b-a});
-    var top_labels = sorted_labels.map(x =>x.slice(0,10));
-
-    // Get the first ID to display on page on load
-    var firstID = data.metadata[0]// first id
-    var sampleMetadata1 = d3.select("#sample-metadata").selectAll('h1')
-    
-    //-------------------------------------------------
-    // Display the first ID's demographic information
-    var sampleMetadata = sampleMetadata1.data(d3.entries(firstID))
-    sampleMetadata.enter()
-                    .append('h1')
-                    .merge(sampleMetadata)
-                    .text(d => `${d.key} : ${d.value}`)
-                    .style('font-size','12px')
-  
-    sampleMetadata.exit().remove()
-    
-*/
 
 // Bar chart
 function buildBarChart(sample) {
@@ -102,7 +69,7 @@ function buildBarChart(sample) {
           title: "Top 10 Bacteria Cultures Found",
           margin: { t: 80, l: 150 },
       
-          // Customize the chart theme here
+          // Customize the chart theme
            paper_bgcolor: 'white', 
            plot_bgcolor: 'white',
            font: {
@@ -111,7 +78,7 @@ function buildBarChart(sample) {
           xaxis: {
               range: [0, 200] 
           },        
-          // Ajustar el tamaño de la gráfica
+          // Graphic size adjustment
           width: 700, // width
           height: 500 // hight
       };
@@ -172,8 +139,7 @@ function buildBubbleChart(sample) {
   });
 }
 
-
-// Metadata info
+// Display metadata info from JSON file
 function buildMetadata(sample) {
   d3.json(url).then((data) => {
       let metadata = data.metadata;
@@ -185,8 +151,6 @@ function buildMetadata(sample) {
       PANEL.html("");
       Object.entries(result).forEach(([key, value]) => {
           let metadataItem = PANEL.append("h6").text(`${key.toUpperCase()}: ${value}`);
-
-          //metadataItem.style("background-color", "#c0c");
           metadataItem.style("color", "#000"); 
 
       });
@@ -195,15 +159,13 @@ function buildMetadata(sample) {
 
 
 
-// Function that updates dashboard when sample is changed
+// Function that updates dashboard everytime choosing different sample
 function optionChanged(newSample) {
-  //buildMetadata(newSample);
-  sampleMetadata
   buildBarChart(newSample);
   buildBubbleChart(newSample);
-  buildGaugeChart(newSample);
-
-  console.log(newSample); 
+  buildMetadata(newSample);
+  //console.log(newSample); 
 }
+
 // Initialize the dashboard
 init();
